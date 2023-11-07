@@ -1,21 +1,84 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
+class Usuario {
+    val inscritos: MutableList<String> = mutableListOf()
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+    val listaUsuarios: MutableList<String> = inscritos
 
-class Usuario
+    var mat: Int = 0
+    var por: Int = 0
+    var ing: Int = 0
+    var prog: Int = 0
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
+    fun matricular(usuario: String, conteudo: String) {
 
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
+            if(inscritos.contains(usuario)) {
+                println("Usuario $usuario ja esta matriculado")
+            } else {
+                when (conteudo) {
 
-    val inscritos = mutableListOf<Usuario>()
-    
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+                    "Matematica" -> {
+                        inscritos.add(usuario)
+                        println("Cadastro de $usuario no curso de $conteudo feito com sucesso")
+                        mat++
+                    }
+
+                    "Portugues" -> {
+                        inscritos.add(usuario)
+                        println("Cadastro de $usuario no curso de $conteudo feito com sucesso")
+                        por++
+                    }
+
+                    "Ingles" -> {
+                        inscritos.add(usuario)
+                        println("Cadastro de $usuario no curso de $conteudo feito com sucesso")
+                        ing++
+                    }
+
+                    "Programacao" -> {
+                        inscritos.add(usuario)
+                        println("Cadastro de $usuario no curso de $conteudo feito com sucesso")
+                        prog++
+                    }
+
+                    else -> println("Aluno $usuario nao cadastrado: Conteudo $conteudo inexistente")
+                }
+        }
+    }
+    fun totalUsuarios(): MutableList<String> {
+        return listaUsuarios
     }
 }
 
+data class ConteudoEducacional(
+    val nome: List<String> = listOf(
+        "Matematica",
+        "Portugues",
+        "Ingles",
+        "Programacao"
+    ), val duracao: Int = 60) {
+}
+
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    //Retorna todos cursos disponiveis
+    val cursos = ConteudoEducacional()
+    println(
+        "Cursos disponiveis ${cursos.nome}" + " " +
+                "Duracao das aulas: ${cursos.duracao} minutos"
+    )
+    //Adicionando alunos
+    val matricula = Usuario()
+    matricula.matricular("Mauricio", "Matematica")
+    matricula.matricular("Joana", "Programacao")
+    matricula.matricular("Joana", "Programacao")    //Verificando se ja existe aluno matriculado
+    matricula.matricular("Paulo", "Ingles")
+    matricula.matricular("Patricia", "Matematica")
+    matricula.matricular("Jessica", "Programacao")
+    matricula.matricular("Carlos", "Programaca")    //Verificando cursos com o nome correto
+
+    //Retorna total de alunos
+    println("Total de alunos em Matematica: ${matricula.mat}")      //Total Matematica
+    println("Total de alunos em Portugues: ${matricula.por}")       //Total Portugues
+    println("Total de alunos em Ingles: ${matricula.ing}")          //Total Ingles
+    println("Total de alunos em Programacao: ${matricula.prog}")    //Total Programaçao
+
+    println("Total de alunos: ${matricula.totalUsuarios().size}")
 }
